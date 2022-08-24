@@ -11,10 +11,8 @@ function SidePanel({callbackRouteInfo}){
     const [destination, setDestination] = useState();
 
     const handleSubmit = (event) => {
-        console.log('submitting element with id: ' + id)
         if(locationRef.current.value.trim()){
             let newList = [...inputList, [locationRef.current.value, id]];
-            console.log(newList);
             locationRef.current.value = "";
             setId(id +1);
             setInputList(newList);
@@ -28,9 +26,17 @@ function SidePanel({callbackRouteInfo}){
     }
    
     async function sendRouteInfo(){
+        const waypts = [];
+        for(let i = 0; i < inputList.length; i++){
+            waypts.push({
+                location: inputList[i][0],
+                stopover: true,
+            })
+        }
         const routeInfo = {
             start: start,
             destination: destination,
+            waypts: waypts,
         }
         callbackRouteInfo(routeInfo);
     }
