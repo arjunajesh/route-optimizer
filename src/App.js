@@ -7,7 +7,7 @@ import { useLoadScript} from "@react-google-maps/api";
 
 function App() {
   const libraries = ["places"];
-  const [directionResult, setDirectionResult] = useState(null);
+  const [directionInfo, setDirectionInfo] = useState(null);
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: 'AIzaSyBqfMca14nG4xosHZS6cVxGdtV2VRtGYSw',
     libraries,
@@ -15,17 +15,17 @@ function App() {
   if(loadError) return "Error loading maps";
   if(!isLoaded) return "Loading Maps";
   
-  const directionResultCallBack = (result) =>{
+  const directionInfoCallBack = (result) =>{
     console.log("something got called back")
-    setDirectionResult(result);
+    setDirectionInfo(result);
   }
 
   return (
     <div className="Main">
       <div className="Nav-info">
-        <SidePanel setDirectionResult={directionResultCallBack}/>
+        <SidePanel callbackRouteInfo={directionInfoCallBack}/>
       </div>
-      <Map directionResult={directionResult}/>
+      <Map directionInfo={directionInfo}/>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import Stops from './Stops.js'
 import {Autocomplete} from "@react-google-maps/api";
 import StartStop from './StartStop.js'
 //const google = window.google;
-function SidePanel({setDirectionResult}){
+function SidePanel({callbackRouteInfo}){
     const locationRef = useRef(null);
     const [id,setId] = useState(0);
     const [inputList,setInputList] = useState([]);
@@ -27,16 +27,12 @@ function SidePanel({setDirectionResult}){
         setInputList(newList);
     }
    
-    async function calculateRoute(){
-        if(start===undefined || destination===undefined) return;
-        console.log(start + ", " + destination);
-        const directionsService = new window.google.maps.DirectionsService();
-        const results = await directionsService.route({
-            origin: start,
+    async function sendRouteInfo(){
+        const routeInfo = {
+            start: start,
             destination: destination,
-            travelMode: window.google.maps.TravelMode.DRIVING
-        })
-        setDirectionResult(results);
+        }
+        callbackRouteInfo(routeInfo);
     }
 
     return(
@@ -50,7 +46,7 @@ function SidePanel({setDirectionResult}){
                     <input placeholder="Address of Stop" ref={locationRef}/>
                 </Autocomplete>
                 <button onClick={handleSubmit}>Add</button>
-                <button onClick={calculateRoute}>Calculate Route</button>
+                <button onClick={sendRouteInfo}>Calculate Route</button>
             </div>
             
         </div>
