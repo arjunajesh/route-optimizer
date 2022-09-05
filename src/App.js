@@ -9,7 +9,7 @@ function App() {
   const libraries = ["places"];
   const [directionInfo, setDirectionInfo] = useState(null);
   const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: 'AIzaSyBqfMca14nG4xosHZS6cVxGdtV2VRtGYSw',
+    googleMapsApiKey: YOUR_GOOGLE_MAPS_API_KEY,
     libraries,
   })
   if(loadError) return "Error loading maps";
